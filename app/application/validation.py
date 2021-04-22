@@ -9,6 +9,8 @@ from app.application.error_code import ErrorCode
 from app.application.model._fields import Boolean, Date, DateTime, Float, Integer, String
 from app.application.model.validation_error_model import ValidationError
 from app.util.validation import (
+    exclusive_maximum,
+    exclusive_minimum,
     full_match,
     is_boolean_type,
     is_contained,
@@ -102,6 +104,17 @@ class Validator:
             if not maximum(value, field.maximum):
                 error_codes.append(ErrorCode.MAX)
 
+        if field.exclusiveMinimum and field.exclusiveMaximum:
+            if not exclusive_minimum(value, field.exclusiveMinimum) \
+                    or not exclusive_maximum(value, field.exclusiveMaximum):
+                error_codes.append(ErrorCode.MIN_MAX)
+        elif field.exclusiveMinimum:
+            if not exclusive_minimum(value, field.exclusiveMinimum):
+                error_codes.append(ErrorCode.MIN)
+        elif field.exclusiveMaximum:
+            if not exclusive_maximum(value, field.exclusiveMaximum):
+                error_codes.append(ErrorCode.MAX)
+
         if error_codes:
             self.add_errors(field=field.title, code=error_codes)
 
@@ -129,6 +142,17 @@ class Validator:
                 error_codes.append(ErrorCode.MIN)
         elif field.maximum:
             if not maximum(value, field.maximum):
+                error_codes.append(ErrorCode.MAX)
+
+        if field.exclusiveMinimum and field.exclusiveMaximum:
+            if not exclusive_minimum(value, field.exclusiveMinimum) \
+                    or not exclusive_maximum(value, field.exclusiveMaximum):
+                error_codes.append(ErrorCode.MIN_MAX)
+        elif field.exclusiveMinimum:
+            if not exclusive_minimum(value, field.exclusiveMinimum):
+                error_codes.append(ErrorCode.MIN)
+        elif field.exclusiveMaximum:
+            if not exclusive_maximum(value, field.exclusiveMaximum):
                 error_codes.append(ErrorCode.MAX)
 
         if error_codes:

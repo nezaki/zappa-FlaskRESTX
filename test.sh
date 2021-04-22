@@ -5,4 +5,5 @@ export STAGE=test
 
 (cd `dirname $0`; cd ../)
 
-pytest
+#pytest
+pytest -v --cov=app

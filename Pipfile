@@ -13,6 +13,7 @@ isort = "*"
 pre-commit = "*"
 pytest = "*"
 pytest-mock = "*"
+pytest-cov = "*"
 sqlalchemy-migrate = "*"
 
 [packages]
