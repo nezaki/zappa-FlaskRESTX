@@ -4,6 +4,13 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+flake8 = "*"
+flake8-isort = "*"
+flake8-quotes = "*"
+flake8-print = "*"
+flake8-annotations = "*"
+isort = "*"
+pre-commit = "*"
 
 [packages]
 zappa = "*"
@@ -14,3 +21,5 @@ flask-cors = "*"
 python_version = "3.8"
 
 [scripts]
+flake8 = "flake8 --config setup.cfg"
+isort = "isort ."

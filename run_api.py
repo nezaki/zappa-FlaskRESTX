@@ -1,5 +1,5 @@
-import os
 import logging
+import os
 
 os.environ["STAGE"] = "local"
 os.environ["LOG_LEVEL"] = logging.getLevelName(logging.DEBUG)

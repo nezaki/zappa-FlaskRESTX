@@ -1,14 +1,13 @@
 import json
 import logging
 import os
+import traceback
+from http import HTTPStatus
 from typing import Any, Tuple
 
 from flask import Flask, request
 from flask_cors import CORS
 from flask_restx import Api
-from http import HTTPStatus
-import traceback
-
 
 _STAGE = os.environ.get("STAGE", "local")
 _LOG_LEVEL = os.environ.get("LOG_LEVEL", "WARN")
@@ -93,4 +92,3 @@ app, api = create_app()
 def error_handler(ex):  # noqa
     app.logger.error(traceback.format_exc())
     return {"message": HTTPStatus.INTERNAL_SERVER_ERROR.description}, HTTPStatus.INTERNAL_SERVER_ERROR.value
-
