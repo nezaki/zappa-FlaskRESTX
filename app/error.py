@@ -13,3 +13,8 @@ class Unauthorized(Exception):
 
 class Forbidden(Exception):
     pass
+
+
+class BadRequest(Exception):
+    def __init__(self, errors):  # noqa
+        self.errors = errors

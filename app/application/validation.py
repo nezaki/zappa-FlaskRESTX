@@ -1,13 +1,13 @@
 import typing
 from http import HTTPStatus
 
-import flask_restx
 from flask_restx import Model
 
 from app.application import pattern
 from app.application.error_code import ErrorCode
 from app.application.model._fields import Boolean, Date, DateTime, Float, Integer, String
 from app.application.model.validation_error_model import ValidationError
+from app.error import BadRequest
 from app.util.validation import (
     exclusive_maximum,
     exclusive_minimum,
@@ -34,10 +34,7 @@ class Validator:
         return bool(self.errors)
 
     def abort(self, code: int = HTTPStatus.BAD_REQUEST.value) -> typing.NoReturn:
-        flask_restx.abort(
-            code=code,
-            errors=self.errors,
-        )
+        raise BadRequest(errors=self.errors)
 
     def add_errors(self, field: str, code: typing.List[ErrorCode]) -> typing.NoReturn:
         self.errors.append(ValidationError.format(field, code))

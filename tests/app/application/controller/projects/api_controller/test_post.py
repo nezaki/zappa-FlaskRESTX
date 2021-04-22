@@ -5,7 +5,7 @@ class TestPost(object):
     def setup_method(self, method):  # noqa: ANN001, ANN201
         pass
 
-    def test_post(self, mocker):  # noqa: ANN001, ANN201
+    def test_post_200(self, mocker):  # noqa: ANN001, ANN201
         payload = {
             "name": "テスト"
         }
@@ -19,3 +19,15 @@ class TestPost(object):
         assert len(response_body) == 2
         # assert response_body["id"] ==
         assert response_body["name"] == payload["name"]
+
+    def test_post_400(self, mocker):  # noqa: ANN001, ANN201
+        payload = {
+            "name": 1
+        }
+        response = client.post("/projects", json=payload)
+        assert response.status_code == 400
+
+        response_errors = response.json["errors"]
+        assert len(response_errors) == 1
+        assert response_errors[0]["field"] == "name"
+        assert len(response_errors[0]["code"]) == 1
