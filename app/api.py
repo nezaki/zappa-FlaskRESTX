@@ -18,9 +18,10 @@ from app.application.model import (
     validation_error_schema,
     validation_errors_schema,
 )
+from app.error import NotFound
 
 _STAGE = os.environ.get("STAGE", "local")
-_LOG_LEVEL = os.environ.get("LOG_LEVEL", "WARN")
+_LOG_LEVEL = os.environ.get("LOG_LEVEL", logging.getLevelName(logging.WARN))
 
 
 class LocalConfig:
@@ -106,6 +107,10 @@ def create_app() -> Tuple[Flask, Api]:
 
     @app.errorhandler(404)
     def not_found_error(ex): # noqa
+        return {"message": HTTPStatus.NOT_FOUND.description}, 404
+
+    @api.errorhandler(NotFound)
+    def not_found_error(ex):  # noqa
         return {"message": HTTPStatus.NOT_FOUND.description}, 404
 
     return app, api
