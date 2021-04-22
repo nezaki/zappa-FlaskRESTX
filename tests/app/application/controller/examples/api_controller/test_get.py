@@ -13,6 +13,6 @@ class TestGet(object):
 
         assert response_body.get("example_string") == "example"
         assert response_body.get("example_number") == 999
-        # assert response_body.get("example_datetime") == ""
+        assert response_body.get("example_datetime") == "2021-04-22T12:30:45+0900"
         assert response_body.get("example_boolean")
         assert response_body.get("example_enum") == "1"
