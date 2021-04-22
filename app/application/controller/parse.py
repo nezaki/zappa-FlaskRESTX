@@ -6,7 +6,7 @@ from flask import request
 from flask_restx import Model
 
 from app.application import pattern
-from app.application.model._fields import DateTime, Nested
+from app.application.model._fields import DateTime, List, Nested
 from app.application.validation import validate
 
 
@@ -15,15 +15,15 @@ def _parse_payload(model: Dict, payload: Dict, http_method: str) -> Dict:
     for title, field in model.items():
         if field.readonly or title not in payload:
             continue
-
-        # TODO List
-
-        if isinstance(field, Nested):
-            if payload[title]:
-                parsed_payload[title] = _parse_payload(field.model, payload[title], http_method)
-        elif isinstance(field, DateTime):
+        if isinstance(field, DateTime):
             if payload[title]:
                 parsed_payload[title] = datetime.strptime(payload[title], pattern.DATETIME)
+        elif isinstance(field, Nested):
+            if payload[title]:
+                parsed_payload[title] = _parse_payload(field.model, payload[title], http_method)
+        elif isinstance(field, List):
+            # TODO
+            pass
         else:
             if title in payload:
                 parsed_payload[title] = payload[title]

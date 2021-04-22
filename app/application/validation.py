@@ -171,7 +171,7 @@ def validate(model: Model, payload: typing.Optional[typing.Any]) -> None:
         return
 
     for title, field in model.items():
-        # TODO Listで受け付ける場合の対応
+        # TODO  Listで受け付ける場合の対応
 
         if field.readonly:
             continue
