@@ -1,0 +1,20 @@
+from enum import Enum
+
+
+class ErrorCode(Enum):
+    REQUIRED = "REQUIRED"
+    NOT_NULL = "NOT_NULL"
+    NOT_STRING = "NOT_STRING"
+    NOT_INTEGER = "NOT_INTEGER"
+    NOT_FLOAT = "NOT_FLOAT"
+    NOT_BOOLEAN = "NOT_BOOLEAN"
+    NOT_DATETIME = "NOT_DATETIME"
+    NOT_DATE = "NOT_DATE"
+    MIN_LENGTH = "MIN_LENGTH"
+    MAX_LENGTH = "MAX_LENGTH"
+    MIN_MAX_LENGTH = "MIN_MAX_LENGTH"
+    MIN = "MIN"
+    MAX = "MAX"
+    MIN_MAX = "MIN_MAX"
+    ENUM = "ENUM"
+    PATTERN = "PATTERN"

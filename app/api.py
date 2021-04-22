@@ -10,7 +10,14 @@ from flask_cors import CORS
 from flask_restx import Api
 
 from app.application.controller.examples.api_controller import namespace as examples_namespace
-from app.application.model import example_schema
+from app.application.controller.projects.api_controller import namespace as projects_namespace
+from app.application.model import (
+    example_schema,
+    project_schema,
+    projects_schema,
+    validation_error_schema,
+    validation_errors_schema,
+)
 
 _STAGE = os.environ.get("STAGE", "local")
 _LOG_LEVEL = os.environ.get("LOG_LEVEL", "WARN")
@@ -61,9 +68,14 @@ def create_app() -> Tuple[Flask, Api]:
     )
     namespaces = [
         examples_namespace,
+        projects_namespace,
     ]
     schemas = [
         example_schema,
+        project_schema,
+        projects_schema,
+        validation_error_schema,
+        validation_errors_schema,
     ]
 
     api.namespaces.clear()
