@@ -86,6 +86,10 @@ def create_app() -> Tuple[Flask, Api]:
                 f"\nbody: {response_body}")
         return response
 
+    @app.errorhandler(404)
+    def not_found_error(ex): # noqa
+        return {"message": HTTPStatus.NOT_FOUND.description}, 404
+
     return app, api
 
 
@@ -95,4 +99,4 @@ app, api = create_app()
 @api.errorhandler(Exception)
 def error_handler(ex):  # noqa
     app.logger.error(traceback.format_exc())
-    return {"message": HTTPStatus.INTERNAL_SERVER_ERROR.description}, HTTPStatus.INTERNAL_SERVER_ERROR.value
+    return {"message": HTTPStatus.INTERNAL_SERVER_ERROR.description}, 500
