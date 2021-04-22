@@ -9,6 +9,9 @@ from flask import Flask, request
 from flask_cors import CORS
 from flask_restx import Api
 
+from app.application.controller.examples.api_controller import namespace as examples_namespace
+from app.application.model import example_schema
+
 _STAGE = os.environ.get("STAGE", "local")
 _LOG_LEVEL = os.environ.get("LOG_LEVEL", "WARN")
 
@@ -49,8 +52,12 @@ def create_app() -> Tuple[Flask, Api]:
         ordered=False,
         prefix="",
     )
-    namespaces = []
-    schemas = []
+    namespaces = [
+        examples_namespace,
+    ]
+    schemas = [
+        example_schema,
+    ]
 
     api.namespaces.clear()
     [api.add_namespace(namespace) for namespace in namespaces]
@@ -77,10 +84,6 @@ def create_app() -> Tuple[Flask, Api]:
                 f"\n{response.headers}"
                 f"\nbody: {response_body}")
         return response
-
-    @api.errorhandler(404)
-    def not_found_error(ex): # noqa
-        return {"message": HTTPStatus.NOT_FOUND.description}, HTTPStatus.NOT_FOUND.value
 
     return app, api
 

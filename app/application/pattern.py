@@ -1,0 +1,5 @@
+MATCH_ANYTHING = "*"
+EMAIL = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+DATE = "%Y-%m-%d"
+TIME = "%H:%M:%S"
+DATETIME = "%Y-%m-%dT%H:%M:%S%z"
