@@ -13,11 +13,14 @@ isort = "*"
 pre-commit = "*"
 pytest = "*"
 pytest-mock = "*"
+sqlalchemy-migrate = "*"
 
 [packages]
 zappa = "*"
 flask-restx = "*"
 flask-cors = "*"
+sqlalchemy = "*"
+pymysql = "*"
 
 [requires]
 python_version = "3.8"
@@ -27,3 +30,6 @@ flake8 = "flake8 --config setup.cfg"
 isort = "isort ."
 test = "sh test.sh"
 deploy = "zappa update -s zappa_settings.yml development"
+db_version_control = "sh db_migrate.sh version_control"
+db_upgrade = "sh db_migrate.sh upgrade"
+db_downgrade = "sh db_migrate.sh downgrade"  # 実行時にバージョンを引数で渡す  e.g. pipenv run db_downgrade 0

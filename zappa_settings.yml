@@ -22,6 +22,8 @@ development:
     - "*.zip"
     - "*.rar"
     - "tmp*"
+    - "tests*"
+    - "data_model*"
   keep_warm: false
   #  keep_warm_expression: "rate(4 minutes)"  # How often to execute the keep-warm, in cron and rate format. Default 4 minutes.
   #  lambda_description:

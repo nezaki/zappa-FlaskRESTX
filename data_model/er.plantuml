@@ -1,0 +1,44 @@
+@startuml
+
+entity Project {
+    + id
+    --
+    name
+}
+
+entity User {
+    + id
+    --
+    name
+}
+
+entity ProjectUser {
+    + project_id
+    + user_id
+}
+
+entity IssueCategory {
+    + id
+    --
+    name
+}
+
+entity Issue {
+    + id
+    --
+    * project_id
+    * user_id
+    * issue_category_id
+    --
+    title
+    description
+    status
+}
+
+Project ||-right-|{ ProjectUser
+User ||-left-|{ ProjectUser
+Project ||--|{ Issue
+User ||--|{ Issue
+IssueCategory --right-o{ Issue
+
+@enduml
