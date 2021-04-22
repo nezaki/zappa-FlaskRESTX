@@ -1,0 +1,46 @@
+development:
+  app_function: app.api.app
+  alb_enabled: false
+  api_key_required: false
+  apigateway_enabled: true
+  #  apigateway_description:
+  aws_environment_variables:
+    LOG_LEVEL: DEBUG # DEBUG, INFO, WARN, ERROR
+  aws_region: ap-northeast-1
+  binary_support: true
+  cache_cluster_enabled: false
+  cloudwatch_log_level: INFO  # Enables/configures a level of logging for the given staging. Available options: "OFF", "INFO", "ERROR", default "OFF".
+  cloudwatch_data_trace: true  # Logs all data about received events. Default false.
+  cloudwatch_metrics_enabled: false  # Additional metrics for the API Gateway. Default false.
+  cors: true
+  debug: true
+  delete_local_zip: true
+  delete_s3_zip: true
+  base_path: ""
+  exclude:
+    - "*.gz"
+    - "*.zip"
+    - "*.rar"
+    - "tmp*"
+  keep_warm: false
+  #  keep_warm_expression: "rate(4 minutes)"  # How often to execute the keep-warm, in cron and rate format. Default 4 minutes.
+  #  lambda_description:
+  lambda_concurrency: null  # Sets the maximum number of simultaneous executions for a function, and reserves capacity for that concurrency level. Default is None.
+  log_level: DEBUG  # Set the Zappa log level. Can be one of CRITICAL, ERROR, WARNING, INFO and DEBUG. Default: DEBUG
+  memory_size: 512
+  num_retained_versions: null  # Indicates the number of old versions to retain for the lambda. If absent, keeps all the versions of the function.
+  payload_compression: true  # Whether or not to enable API gateway payload compression (default: true)
+  payload_minimum_compression_size: 0  # The threshold size (in bytes) below which payload compression will not be applied (default: 0)
+  project_name: zappa-flaskrestx
+  runtime: python3.8
+  s3_bucket: zappa-flaskrestx-deploy
+  slim_handler: false
+  timeout_seconds: 30
+  touch: false  # GET the production URL upon initial deployment (default True)
+  use_precompiled_packages: true  # If possible, use C-extension packages which have been pre-compiled for AWS Lambda. Default true.
+  #  vpc_config:
+  #    SubnetIds:
+  #      -
+  #    SecurityGroupIds:
+  #      -
+  xray_tracing: true

@@ -18,16 +18,22 @@ _LOG_LEVEL = os.environ.get("LOG_LEVEL", "WARN")
 
 class LocalConfig:
     DEBUG = True
-    ENV = os.environ.get("STAGE", "local")
+    ENV = _STAGE
     SWAGGER_UI_DOC_EXPANSION = "list"  # 'none', 'list' or 'full'
     SWAGGER_SUPPORTED_SUBMIT_METHODS = [
         "get", "put", "post", "delete", "options", "head", "patch", "trace"]
     RESTX_MASK_SWAGGER = False
 
 
+class DevelopmentConfig:
+    DEBUG = True
+    ENV = _STAGE
+
+
 CONFIG_NAME_MAPPER = {
     "local": LocalConfig,
     "test": LocalConfig,
+    "development": DevelopmentConfig,
 }
 
 
