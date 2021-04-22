@@ -1,0 +1,37 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install pipenv and dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pipenv --upgrade-strategy=only-if-needed
+
+      - name: Install dependencies
+        if: steps.pipenv-cache.outputs.cache-hit != 'true'
+        run: |
+          # pipenv sync --dev
+          pipenv install --dev
+
+      - name: Run Flake8
+        run: |
+          pipenv run flake8
+
+      - name: Run test
+        run: |
+          pipenv run test
