@@ -27,6 +27,7 @@ class LocalConfig:
 
 CONFIG_NAME_MAPPER = {
     "local": LocalConfig,
+    "test": LocalConfig,
 }
 
 

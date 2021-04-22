@@ -11,6 +11,8 @@ flake8-print = "*"
 flake8-annotations = "*"
 isort = "*"
 pre-commit = "*"
+pytest = "*"
+pytest-mock = "*"
 
 [packages]
 zappa = "*"
@@ -23,3 +25,4 @@ python_version = "3.8"
 [scripts]
 flake8 = "flake8 --config setup.cfg"
 isort = "isort ."
+test = "sh test.sh"
