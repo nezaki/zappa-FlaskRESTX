@@ -3,7 +3,7 @@ import logging
 import os
 import traceback
 from http import HTTPStatus
-from typing import Any, Tuple
+from typing import Any, NoReturn, Tuple
 
 from flask import Flask, request
 from flask_cors import CORS
@@ -27,7 +27,7 @@ CONFIG_NAME_MAPPER = {
 }
 
 
-def _add_model(api_: Api, schema: Any) -> None:
+def _add_model(api_: Api, schema: Any) -> NoReturn:
     model = schema.model()
     api_.models[model.name] = model
 
@@ -57,7 +57,7 @@ def create_app() -> Tuple[Flask, Api]:
     [_add_model(api, schema) for schema in schemas]
 
     @app.before_request
-    def before_request() -> None:
+    def before_request(): # noqa
         if logging.getLevelName(_LOG_LEVEL) <= logging.DEBUG:
             request_body = json.dumps(request.json, indent=2, ensure_ascii=False) \
                 if request.json else None
@@ -79,7 +79,7 @@ def create_app() -> Tuple[Flask, Api]:
         return response
 
     @api.errorhandler(404)
-    def not_found_error(ex):
+    def not_found_error(ex): # noqa
         return {"message": HTTPStatus.NOT_FOUND.description}, HTTPStatus.NOT_FOUND.value
 
     return app, api
