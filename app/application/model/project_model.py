@@ -34,7 +34,7 @@ class Project(ModelBase):
 class Projects(ModelBase):
     __classname__ = "Projects"
 
-    organizations = List(
+    projects = List(
         title="projects",
         cls_or_instance=Nested(
             model=Project().model(),

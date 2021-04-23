@@ -9,15 +9,8 @@ from flask import Flask, request
 from flask_cors import CORS
 from flask_restx import Api
 
-from app.application.controller.examples.api_controller import namespace as examples_namespace
 from app.application.controller.projects.api_controller import namespace as projects_namespace
-from app.application.model import (
-    example_schema,
-    project_schema,
-    projects_schema,
-    validation_error_schema,
-    validation_errors_schema,
-)
+from app.application.model import project_schema, projects_schema, validation_error_schema, validation_errors_schema
 from app.error import BadRequest, NotFound
 
 _STAGE = os.environ.get("STAGE", "local")
@@ -31,11 +24,13 @@ class LocalConfig:
     SWAGGER_SUPPORTED_SUBMIT_METHODS = [
         "get", "put", "post", "delete", "options", "head", "patch", "trace"]
     RESTX_MASK_SWAGGER = False
+    ERROR_INCLUDE_MESSAGE = False
 
 
 class DevelopmentConfig:
     DEBUG = True
     ENV = _STAGE
+    ERROR_INCLUDE_MESSAGE = False
 
 
 CONFIG_NAME_MAPPER = {
@@ -68,11 +63,9 @@ def create_app() -> Tuple[Flask, Api]:
         prefix="",
     )
     namespaces = [
-        examples_namespace,
         projects_namespace,
     ]
     schemas = [
-        example_schema,
         project_schema,
         projects_schema,
         validation_error_schema,
@@ -115,7 +108,7 @@ def create_app() -> Tuple[Flask, Api]:
 
     @api.errorhandler(BadRequest)
     def not_found_error(ex: BadRequest):  # noqa
-        return {"errors": ex.errors, "message": None}, 400
+        return {"errors": ex.errors}, 400
 
     return app, api
 
